@@ -1,4 +1,7 @@
 Mbkmrk::Application.routes.draw do
+
+  match "facebook/subscription", :controller => :facebook_realtime_updates, :action => :subscription, :as => 'facebook_subscription', :via => [:get,:post] 
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

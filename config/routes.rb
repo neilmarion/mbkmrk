@@ -1,5 +1,6 @@
 Mbkmrk::Application.routes.draw do
 
+  devise_for :users
   match "facebook/subscription", :controller => :facebook_realtime_updates, :action => :subscription, :as => 'facebook_subscription', :via => [:get,:post] 
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -27,6 +27,18 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+gem "twitter-bootstrap-rails"
+
+gem 'omniauth-facebook'
+gem 'omniauth-identity'
+gem 'devise'
+gem 'acts-as-taggable-on'
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
+gem 'paranoia'
+
+gem 'friendly_id'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -42,6 +54,18 @@ gem 'activerecord-postgresql-adapter'
 
 # Use Capistrano for deployment
 gem 'capistrano'
+
+group :test, :development, :staging do
+  gem 'faker'
+end
+
+group :test, :development do
+  gem 'rspec-rails'
+  gem 'rb-inotify', '~> 0.9'
+  gem 'better_errors'
+  gem 'rack-mini-profiler'
+  gem 'binding_of_caller'
+end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]

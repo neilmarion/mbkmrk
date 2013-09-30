@@ -67,5 +67,16 @@ group :test, :development do
   gem 'binding_of_caller'
 end
 
+group :test do
+  gem 'webmock'
+  gem 'capybara'
+  gem 'factory_girl'
+  gem 'guard-rspec'
+  gem 'shoulda'
+  gem 'launchy'
+  gem 'database_cleaner'
+  gem 'simplecov'
+end
+
 # Use debugger
 # gem 'debugger', group: [:development, :test]

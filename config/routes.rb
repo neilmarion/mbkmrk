@@ -1,8 +1,11 @@
 Mbkmrk::Application.routes.draw do
   root :to => 'posts#index'
 
-  devise_for :users
   match "facebook/subscription", :controller => :facebook_realtime_updates, :action => :subscription, :as => 'facebook_subscription', :via => [:get,:post] 
+
+  devise_for :users, path_names: {sign_in: "login", sign_out: "signout"},
+                     controllers: {omniauth_callbacks: "users/omniauth_callbacks", 
+                        sessions: "users/sessions"}
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

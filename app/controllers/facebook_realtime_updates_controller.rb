@@ -1,4 +1,5 @@
 class FacebookRealtimeUpdatesController < ApplicationController
+  protect_from_forgery
   VERIFY_TOKEN = "e9prWj1M6nkc152"
 
   def subscription

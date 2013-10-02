@@ -1,2 +1,11 @@
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<table class="table">
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.message %></td>
+        <td><%= post.link %></td>
+      </tr>
+    <% end %>
+    
+  </tbody>
+</table>

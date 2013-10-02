@@ -1,7 +1,9 @@
 Mbkmrk::Application.routes.draw do
   root :to => 'posts#index'
 
-  match "facebook/subscription", :controller => :facebook_realtime_updates, :action => :subscription, :as => 'facebook_subscription', :via => [:get,:post] 
+  #match "facebook/subscription", :controller => :facebook_realtime_updates, :action => :subscription, :as => 'facebook_subscription', :via => [:get,:post] 
+
+  resources :facebook_realtime_updates
 
   devise_for :users, path_names: {sign_in: "login", sign_out: "signout"},
                      controllers: {omniauth_callbacks: "users/omniauth_callbacks", 

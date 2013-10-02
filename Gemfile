@@ -38,6 +38,7 @@ gem 'acts-as-taggable-on'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'paranoia'
+gem 'koala'
 
 gem 'friendly_id'
 

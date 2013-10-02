@@ -21,3 +21,4 @@ facebook.yml
 
 libpeerconnection.log
 /coverage/*
+*.sw*

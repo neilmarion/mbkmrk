@@ -1,5 +1,5 @@
 class FacebookRealtimeUpdatesController < ApplicationController
-  protect_from_forgery
+  before_filter :protect_from_forgery, :except => [:subscription]
   VERIFY_TOKEN = "e9prWj1M6nkc152"
 
   def subscription

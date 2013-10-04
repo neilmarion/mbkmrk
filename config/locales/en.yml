@@ -22,3 +22,5 @@
 en:
   general:
     title: "mbkmrk"
+  errors:
+    verify_token: "Failed to authorize facebook challenge request"

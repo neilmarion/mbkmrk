@@ -1,17 +1,15 @@
 class FacebookRealtimeUpdatesController < ApplicationController
-  before_filter :protect_from_forgery, :except => [:subscription]
-  VERIFY_TOKEN = "e9prWj1M6nkc152"
+  skip_before_filter :verify_authenticity_token, :only => [:subscription]
 
   def subscription
     if request.method == "GET"
-      if params['hub.mode'] =='subscribe' && params['hub.verify_token'] == VERIFY_TOKEN
-        render :text=>Koala::Facebook::RealtimeUpdates.meet_challenge(params, VERIFY_TOKEN)
+      if params['hub.mode'] =='subscribe' && params['hub.verify_token'] == REALTIME_VERIFY_TOKEN['token']
+        render :text=>Koala::Facebook::RealtimeUpdates.meet_challenge(params, REALTIME_VERIFY_TOKEN['token'])
       else 
         render :text => 'Failed to authorize facebook challenge request'
       end
     elsif request.method == "POST"
-      Rails.logger.info("update-------------------------------") 
-      Rails.logger.info(JSON.parse(request.body.read))
+      Rails.logger.info(JSON.PARse(request.body.read))
       updated_obj = JSON.parse(request.body.read)
       puts updated_obj
       render :text => "Thanks for the update"

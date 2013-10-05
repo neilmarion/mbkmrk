@@ -1,5 +1,8 @@
-development:
+facebook_verify_token: &facebook_verify_token
   token: e9prWj1M6nkc152 
 
+development:
+  <<: *facebook_verify_token
+
 test:
-  token: e9prWj1M6nkc152 
+  <<: *facebook_verify_token

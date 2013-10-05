@@ -9,4 +9,9 @@ shared_context "common controller stuff" do
   def should_be_unauthorized_access
     response.status.should eq 401 #unauthorized access
   end
+
+  def randomize_string
+    o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+    string = (0...50).map{ o[rand(o.length)] }.join
+  end
 end

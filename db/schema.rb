@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20131001012245) do
 
   create_table "posts", force: true do |t|
     t.integer  "user_id"
+    t.string   "uid"
     t.string   "message"
     t.string   "picture"
     t.string   "link"
@@ -48,13 +49,13 @@ ActiveRecord::Schema.define(version: 20131001012245) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "access_token"
-    t.text     "latest_feed",            default: [],              array: true
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.text     "latest_feed",            default: "--- []\n"
+    t.string   "email",                  default: "",         null: false
+    t.string   "encrypted_password",     default: "",         null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,          null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"

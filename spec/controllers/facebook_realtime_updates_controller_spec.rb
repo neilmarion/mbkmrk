@@ -38,7 +38,7 @@ describe FacebookRealtimeUpdatesController do
           "link" : "http://link.link",
           "source" : "http://source.source",
           "name" : "name",
-          "caption" : "caption"}, {"message" : "message"}]
+          "caption" : "caption"}]
         }'
     }
 
@@ -53,29 +53,15 @@ describe FacebookRealtimeUpdatesController do
       stub_request(:get, "http://graph.facebook.com/me/feed").
         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faraday v0.8.8'}).
         to_return(:status => 200, :body => "#{response}", :headers => {})
-
-
     end
 
-    it "creates a post for a user" do
-      koala = double("koala")
-      Koala::Facebook::GraphAPI.should_receive(:new) { koala } 
-      expect(koala).to receive(:get_connections) { data }
-
+    it "creates a posts for a user" do
+      result = JSON.parse(response) 
       expect {
         xhr :post, :subscription, params
-      }.to change(Post, :count).by 1
+      }.to change(Post, :count).by result['data'].count
     end
-
-    it "creates posts for a user" do
-      params2 = {}
-      diff = params.count - params.count 
-
-      expect {
-        xhr :post, :subscription, params
-      }.to change(Post, :count).by diff
-    end
-
+    
     it "does not create a post for a user" do
       expect {
         pending 

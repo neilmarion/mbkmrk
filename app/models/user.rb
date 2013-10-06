@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :omniauthable, :trackable, :validatable
 
+  serialize :latest_feed
   has_many :posts
 
   validates_presence_of :provider
@@ -56,6 +57,7 @@ class User < ActiveRecord::Base
   def update_posts!
     @graph = Koala::Facebook::API.new(access_token)
     results = @graph.get_connections('me', 'feed')
+
     difference = results - latest_feed
     difference.each do |feed|
       posts.create(message: feed['message'], picture: feed['picture'], 

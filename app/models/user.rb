@@ -54,19 +54,4 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def update_posts!
-    @graph = Koala::Facebook::API.new(access_token)
-    results = @graph.get_connections('me', 'feed')
-
-    difference = results - latest_feed
-    difference.each do |feed|
-      tags = feed['message'].scan(/#\S+/)
-      unless tags.blank?
-        posts.create(message: feed['message'], picture: feed['picture'], 
-          link: feed['link'], source: feed['source'], tag_list: tags.join(','))
-      end
-    end
-
-    update_attributes(latest_feed: results)
-  end
 end

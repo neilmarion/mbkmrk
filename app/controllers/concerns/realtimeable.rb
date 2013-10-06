@@ -14,7 +14,7 @@ module Realtimeable
       end
     elsif request.method == "POST"
       user = User.where(uid: params['entry'][0]['uid']).first
-      user.update_posts!
+      Post.update_posts!(user)
       render :text => "Thanks for the update"
     end
   end

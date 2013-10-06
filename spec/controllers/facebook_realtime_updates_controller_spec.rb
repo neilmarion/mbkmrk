@@ -23,16 +23,18 @@ describe FacebookRealtimeUpdatesController do
       "facebook_realtime_update"=>{"object"=>"user", 
       "entry"=>[{"uid"=>"", "id"=>"", "time"=>Time.now.to_i, "changed_fields"=>["feed"]}]}}}
 
-    let(:data) {
-      [{"message" => "message",
-        "picture" => "picture.jpeg",
-        "link" => "http://link.link",
-        "source" => "http://source.source",
-        "name" => "name",
-        "caption" => "caption"}]
+    let(:response_with_tag) { #need this to be more random
+      '{"data": [{"message" : "message #tag",
+          "picture" : "picture.jpeg",
+          "link" : "http://link.link",
+          "source" : "http://source.source",
+          "name" : "name",
+          "caption" : "caption"}]
+        }'
     }
 
-    let(:response) {
+
+    let(:response) { #need this to be more random
       '{"data": [{"message" : "message",
           "picture" : "picture.jpeg",
           "link" : "http://link.link",
@@ -49,17 +51,27 @@ describe FacebookRealtimeUpdatesController do
       params['entry'][0]['id'] = @user.uid
       params['facebook_realtime_update']['entry'][0]['uid'] = @user.uid
       params['facebook_realtime_update']['entry'][0]['id'] = @user.uid
-
-      stub_request(:get, "http://graph.facebook.com/me/feed").
-        with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faraday v0.8.8'}).
-        to_return(:status => 200, :body => "#{response}", :headers => {})
     end
 
     it "creates a posts for a user" do
-      result = JSON.parse(response) 
+      stub_request(:get, "http://graph.facebook.com/me/feed").
+        with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faraday v0.8.8'}).
+        to_return(:status => 200, :body => "#{response_with_tag}", :headers => {})
+
+      result = JSON.parse(response_with_tag) 
       expect {
         xhr :post, :subscription, params
       }.to change(Post, :count).by result['data'].count
+    end
+
+    it "does not create a post for a user if it does not have any tags" do
+      stub_request(:get, "http://graph.facebook.com/me/feed").
+        with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faraday v0.8.8'}).
+        to_return(:status => 200, :body => "#{response}", :headers => {})
+
+      expect {
+        xhr :post, :subscription, params
+      }.to_not change(Post, :count)
     end
     
     it "does not create a post for a user" do

@@ -60,8 +60,11 @@ class User < ActiveRecord::Base
 
     difference = results - latest_feed
     difference.each do |feed|
-      posts.create(message: feed['message'], picture: feed['picture'], 
-        link: feed['link'], source: feed['source'])
+      tags = feed['message'].scan(/#\S+/)
+      unless tags.blank?
+        posts.create(message: feed['message'], picture: feed['picture'], 
+          link: feed['link'], source: feed['source'], tag_list: tags.join(','))
+      end
     end
 
     update_attributes(latest_feed: results)

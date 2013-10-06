@@ -39,6 +39,7 @@ gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'paranoia'
 gem 'koala'
+gem 'resque'
 
 gem 'friendly_id'
 

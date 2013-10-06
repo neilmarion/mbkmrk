@@ -9,6 +9,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :first_name
       t.string :last_name
       t.string :access_token
+      t.text :latest_feed
 
       ## Database authenticatable
       t.string :email,              :null => false, :default => ""

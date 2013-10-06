@@ -23,6 +23,25 @@ describe FacebookRealtimeUpdatesController do
       "facebook_realtime_update"=>{"object"=>"user", 
       "entry"=>[{"uid"=>"", "id"=>"", "time"=>Time.now.to_i, "changed_fields"=>["feed"]}]}}}
 
+    let(:data) {
+      [{"message" => "message",
+        "picture" => "picture.jpeg",
+        "link" => "http://link.link",
+        "source" => "http://source.source",
+        "name" => "name",
+        "caption" => "caption"}]
+    }
+
+    let(:response) {
+      '{"data": [{"message" : "message",
+          "picture" : "picture.jpeg",
+          "link" : "http://link.link",
+          "source" : "http://source.source",
+          "name" : "name",
+          "caption" : "caption"}, {"message" : "message"}]
+        }'
+    }
+
     before(:each) do
       @user = FactoryGirl.create(:user_facebook)
       sign_in @user 
@@ -30,10 +49,19 @@ describe FacebookRealtimeUpdatesController do
       params['entry'][0]['id'] = @user.uid
       params['facebook_realtime_update']['entry'][0]['uid'] = @user.uid
       params['facebook_realtime_update']['entry'][0]['id'] = @user.uid
+
+      stub_request(:get, "http://graph.facebook.com/me/feed").
+        with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faraday v0.8.8'}).
+        to_return(:status => 200, :body => "#{response}", :headers => {})
+
+
     end
 
     it "creates a post for a user" do
-      #puts params.inspect 
+      koala = double("koala")
+      Koala::Facebook::GraphAPI.should_receive(:new) { koala } 
+      expect(koala).to receive(:get_connections) { data }
+
       expect {
         xhr :post, :subscription, params
       }.to change(Post, :count).by 1

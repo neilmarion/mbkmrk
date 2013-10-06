@@ -11,6 +11,11 @@ class Post < ActiveRecord::Base
     @graph = Koala::Facebook::GraphAPI.new(user.access_token)
     @graph.get_connections("me", "feed")
     results = graph.get_connections(user.uid, 'feeds', opts)
-    Rails.logger(results) 
+    difference = results - User.latest_feed
+    difference.each do |feed|
+      user.posts.create(message: feed['message'], picture: feed['picture'], 
+        link: feed['link'], source: feed['source'], name: feed['name'], 
+        caption: feed['caption'])
+    end
   end
 end

@@ -13,8 +13,8 @@ module Realtimeable
         render :text => I18n.t('errors.verify_token') 
       end
     elsif request.method == "POST"
-      updated_obj = JSON.parse(request.body.read)
-      puts updated_obj
+      user = User.where(uid: params['entry'][0]['uid']).first
+      user.update_posts!
       render :text => "Thanks for the update"
     end
   end

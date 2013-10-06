@@ -32,16 +32,26 @@ describe FacebookRealtimeUpdatesController do
       params['facebook_realtime_update']['entry'][0]['id'] = @user.uid
     end
 
-    it "creates post for a user" do
+    it "creates a post for a user" do
       #puts params.inspect 
       expect {
         xhr :post, :subscription, params
       }.to change(Post, :count).by 1
     end
 
+    it "creates posts for a user" do
+      params2 = {}
+      diff = params.count - params.count 
+
+      expect {
+        xhr :post, :subscription, params
+      }.to change(Post, :count).by diff
+    end
+
     it "does not create a post for a user" do
-     pending 
+      expect {
+        pending 
+      }.to change(Post, :count).by 1
     end
   end
-
 end

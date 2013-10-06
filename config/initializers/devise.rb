@@ -242,7 +242,7 @@ Devise.setup do |config|
 
   FB = YAML.load_file("#{::Rails.root}/config/facebook.yml")[::Rails.env]
   config.omniauth :facebook, FB['key'], FB['secret'],
-    :scope => 'email,user_education_history,manage_notifications, read_stream'
+    :scope => 'email,user_education_history,manage_notifications, read_stream, offline_access'
   config.authentication_keys = [ :username ]
   config.case_insensitive_keys = [ :username ]
   config.strip_whitespace_keys = [ :username ]

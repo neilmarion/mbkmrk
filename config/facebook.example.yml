@@ -1,15 +1,19 @@
 development:
   key: 
   secret: 
+  callback_url:
 
 test:
   key: 
   secret: 
+  callback_url:
 
 production:
   key: 
   secret: 
+  callback_url:
 
 staging:
   key: 
   secret: 
+  callback_url:

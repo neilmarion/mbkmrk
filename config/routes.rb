@@ -1,3 +1,5 @@
+require 'resque/server'
+
 Mbkmrk::Application.routes.draw do
   root :to => 'posts#index'
 

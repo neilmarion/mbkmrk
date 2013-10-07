@@ -9,6 +9,8 @@ Mbkmrk::Application.routes.draw do
                      controllers: {omniauth_callbacks: "users/omniauth_callbacks", 
                         sessions: "users/sessions"}
 
+  mount Resque::Server, :at => "/resque"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

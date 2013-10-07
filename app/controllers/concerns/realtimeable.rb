@@ -14,7 +14,8 @@ module Realtimeable
       end
     elsif request.method == "POST"
       user = User.where(uid: params['entry'][0]['uid']).first
-      Post.update_posts!(user)
+      Resque.enqueue(UserPostsUpdater, user.id)
+      #Post.update_posts!(user)
       render :text => "Thanks for the update"
     end
   end

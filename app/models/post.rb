@@ -11,7 +11,7 @@ class Post < ActiveRecord::Base
 
     difference = results - user.latest_feed
     difference.each do |feed|
-      tags = feed['message'].scan(/#\S+/)
+      tags = feed['message'] ? feed['message'].scan(/#\S+/) : []
       unless tags.blank?
         user.posts.create(message: feed['message'], picture: feed['picture'], 
           link: feed['link'], source: feed['source'], tag_list: tags.join(','))

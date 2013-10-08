@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   layout 'home'
 
   def index
-    @posts = current_user.posts
+    @posts = current_user.posts.order('created_at DESC')
 
   end
 end

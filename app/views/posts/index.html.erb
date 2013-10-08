@@ -2,8 +2,13 @@
   <tbody>
     <% @posts.each do |post| %>
       <tr>
-        <td><%= post.message %></td>
-        <td><%= post.link %></td>
+        <td><%= image_tag post.picture %></td>
+        <td>
+          <p><%= post.message %></p>
+
+          <p><%=raw auto_link(sanitize(simple_format(post.link)), :tags => %w(br p)) %></p>
+          <p><%=raw auto_link(sanitize(simple_format(post.source)), :tags => %w(br p)) %></p>
+        </td>
       </tr>
     <% end %>
     

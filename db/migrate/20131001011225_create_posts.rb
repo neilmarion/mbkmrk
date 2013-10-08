@@ -3,11 +3,11 @@ class CreatePosts < ActiveRecord::Migration
     create_table :posts do |t|
       t.integer :user_id
       t.string :uid
-      t.string :message
-      t.string :picture
-      t.string :link
-      t.string :source
-      t.string :post_link
+      t.text :message
+      t.text :picture
+      t.text :link
+      t.text :source
+      t.text :post_link
 
       t.timestamps
     end

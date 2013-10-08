@@ -32,3 +32,73 @@ body {
 //
 // Example:
 // @linkColor: #ff0000;
+
+//transigtion
+@transition_time: .5s;
+
+
+//navbar
+.navbar .brand {
+  padding: 0px 0px 0px 175px;
+  opacity: 0.5;
+  -o-transition: @transition_time; 
+  -ms-transition: @transition_time; 
+  -moz-transition: @transition_time; 
+  -webkit-transition: @transition_time; 
+  transition: @transition_time; 
+}
+
+.navbar .brand:hover{
+  opacity: 1;
+}
+
+.navbar-inner { 
+  background-image: url('pw_maze_black.png');
+  background-repeat:repeat;
+  padding-top: 10px; 
+  border: none; 
+  min-height: 30px; 
+} 
+ 
+.navbar a{ 
+  font-weight: bold; 
+  
+} 
+ 
+.navbar a:hover{ 
+  text-decoration: none; 
+  color: @white; 
+}
+
+
+.navbar .nav li.dropdown.open .dropdown-toggle{
+  background-color: transparent;
+  color: @black;
+}
+
+
+.user_thumb_navbar_container{
+  text-align: right;
+}
+
+.user_thumb_small{
+  width: 60%;
+}
+
+.navbar-fixed-top .navbar-inner{
+  padding: 5px 0px 5px 0px;
+}
+
+.navbar .btn{
+  margin-top: 0px;
+}
+
+.navbar .nav li a{
+  padding: 4px 15px 0px;
+  text-shadow: none;
+}
+
+.navbar .nav li a.user-link{
+  padding-bottom: 3px; 
+}
+

@@ -4,6 +4,7 @@ class Post < ActiveRecord::Base
 
   validates_presence_of :uid
   validates_presence_of :tag_list
+  validates_uniqueness_of :link
 
   def self.update_posts!(user, opts={})
     @graph = Koala::Facebook::API.new(user.access_token)

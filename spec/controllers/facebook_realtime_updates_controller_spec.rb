@@ -73,17 +73,17 @@ describe FacebookRealtimeUpdatesController do
         with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faraday v0.8.8'}).
         to_return(:status => 200, :body => "#{response_with_tag}", :headers => {})
 
-      result = JSON.parse(response_with_tag) 
+      rwt = JSON.parse(response_with_tag) 
       expect {
         @user.posts.create(
-            uid: response_with_tag['data']['id'],
-            message: response_with_tag['data']['message'],
-            picture: response_with_tag['data']['picture'],
-            link: response_with_tag['data']['link'],
-            source: response_with_tag['data']['source'],
+            uid: rwt['data'][0]['id'],
+            message: rwt['data'][0]['message'],
+            picture: rwt['data'][0]['picture'],
+            link: rwt['data'][0]['link'],
+            source: rwt['data'][0]['source'],
             tag_list: "#tag"
         )
-      }.to change(Post, :count).by result['data'].count
+      }.to change(Post, :count).by rwt['data'].count
 
       result = JSON.parse(response_with_tag) 
 

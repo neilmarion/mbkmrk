@@ -5,7 +5,7 @@
         <td><%= image_tag post.picture %></td>
         <td>
           <p><%= post.message %></p>
-
+          <p><%= post.title %></p>
           <p><%=raw auto_link(sanitize(simple_format(post.link)), :tags => %w(br p)) %></p>
           <p><%=raw auto_link(sanitize(simple_format(post.source)), :tags => %w(br p)) %></p>
         </td>

@@ -15,6 +15,7 @@ class Post < ActiveRecord::Base
       tags = feed['message'] ? feed['message'].scan(/#\S+/) : []
       unless tags.blank?
         user.posts.find_or_create_by_uid(feed['id']) do |p|
+          p.uid = feed['id']
           p.message = feed['message']
           p.picture = feed['picture'] 
           p.link = feed['link']

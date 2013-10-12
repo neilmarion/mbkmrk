@@ -81,6 +81,7 @@ describe FacebookRealtimeUpdatesController do
             picture: rwt['data'][0]['picture'],
             link: rwt['data'][0]['link'],
             source: rwt['data'][0]['source'],
+            title: rwt['data'][0]['name'],
             tag_list: "#tag"
         )
       }.to change(Post, :count).by rwt['data'].count

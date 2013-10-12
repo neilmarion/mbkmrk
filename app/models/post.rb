@@ -5,6 +5,7 @@ class Post < ActiveRecord::Base
   validates_presence_of :uid
   validates_presence_of :tag_list
   validates_uniqueness_of :link
+  validates_presence_of :title
 
   def self.update_posts!(user, opts={})
     @graph = Koala::Facebook::API.new(user.access_token)
@@ -16,6 +17,7 @@ class Post < ActiveRecord::Base
       unless tags.blank?
         user.posts.find_or_create_by_uid(feed['id']) do |p|
           p.uid = feed['id']
+          p.title = feed['name']
           p.message = feed['message']
           p.picture = feed['picture'] 
           p.link = feed['link']
